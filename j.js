@@ -6,44 +6,59 @@ function j(el) {
     return new J(el);
 }
 
+
+function uw(obj) {
+    if (obj instanceof J) return obj.el;
+    return obj;
+}
+
 function J(el) {
     this.el = el;
 }
 
 J.prototype = {
     insertBefore: function insertBefore(target) {
+        target = uw(target);
         target.parentNode.insertBefore(this.el, target);
         return this;
     },
     insertAfter: function insertAfter(target) {
+        target = uw(target);
         target.parentNode.insertBefore(this.el, target.nextSibling);
         return this;
     },
     before: function before(child) {
+        child = uw(child);
         this.el.parentNode.insertBefore(child, this.el);
         return this;
     },
     after: function after(child) {
+        child = uw(child);
         this.el.parentNode.insertBefore(child, this.el.nextSibling);
         return this;
     },
     prepend: function prepend(child) {
+        child = uw(child);
         this.el.insertBefore(child, this.el.firstChild);
         return this;
     },
     append: function append(child) {
+        child = uw(child);
         this.el.appendChild(child);
         return this;
     },
     appendTo: function appendTo(node) {
+        node = uw(node);
         node.appendChild(this.el);
         return this;
     },
     prependTo: function prependTo(node) {
+        node = uw(node);
         node.insertBefore(this.el, node.firstChild);
         return this;
     },
     contains: function contains(child) {
+        child = uw(child);
         return this.el !== child && this.el.contains(child);
     },
     hide: function hide() {
