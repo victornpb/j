@@ -69,7 +69,7 @@ J.prototype = {
         this.el.style.display = "";
         return this;
     },
-    toggle: function(bool) {
+    toggle: function toggle(bool) {
         if (bool === undefined) {
             bool = this.el.style.display === 'none';
         }
@@ -142,12 +142,12 @@ J.prototype = {
         return new J(this.el.previousElementSibling || previousElementSibling(this.el));
     },
     html: function html(html) {
-        if (html) {
-            this.el.innerHTML = html;
-            return this;
+        if (html === undefined) {
+            return this.el.innerHTML;
         }
         else {
-            return this.el.innerHTML;
+            this.el.innerHTML = html;
+            return this;
         }
     },
     siblings: function siblings() {
