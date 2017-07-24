@@ -1,5 +1,8 @@
 function j(el) {
-    if (typeof el === 'string') el = document.querySelector(el);
+    if (typeof el === 'string') {
+        el = document.querySelector(el);
+        if (!el) return null;
+    }
     return new J(el);
 }
 
@@ -43,7 +46,6 @@ J.prototype = {
     contains: function contains(child) {
         return this.el !== child && this.el.contains(child);
     },
-
     hide: function hide() {
         this.el.style.display = "none";
         return this;
@@ -51,6 +53,12 @@ J.prototype = {
     show: function show() {
         this.el.style.display = "";
         return this;
+    },
+    toggle: function(bool) {
+        if (bool === undefined) {
+            bool = this.el.style.display === 'none';
+        }
+        this.el.style.display = bool ? '' : 'none';
     },
     addClass: function addClass(className) {
         if (this.el.classList)
@@ -146,9 +154,17 @@ J.prototype = {
             left: this.el.offsetLeft
         };
     },
-    css: function css(ruleName) {
+    css: function css(ruleName, value) {
+        if (value) return this.setCss(ruleName, value);
+        else return this.getCss(ruleName);
+    },
+    getCss: function getCss(ruleName) {
         return getComputedStyle(this.el)[ruleName];
     },
+    setCss: function setCss(ruleName, value) {
+        this.el.style[ruleName] = value;
+        return this.el;
+    }
 };
 
 module.exports = j;
