@@ -1,18 +1,19 @@
-function j(el) {
+/**
+ * J
+ * @param  {Element|string}   el A DOM Element or a selector string
+ * @author Victor N. wwww.victorborges.com
+ * @date   2017-07-24
+ */
+function J(el) {
     if (typeof el === 'string') {
         el = document.querySelector(el);
-        if (!el) return null;
     }
-    return new J(el);
-}
 
-
-function uw(obj) {
-    if (obj instanceof J) return obj.el;
-    return obj;
-}
-
-function J(el) {
+    /**
+     * The Element itself
+     * @type {Element}
+     * @property
+     */
     this.el = el;
 }
 
@@ -181,5 +182,23 @@ J.prototype = {
         return this.el;
     }
 };
+
+/**
+ * A j element instanceof
+ * @param  {Element|string}   el A Element or selector string
+ * @return {J}        A j instance
+ */
+function j(el) {
+    return new J(el);
+}
+
+/**
+ * unwrap a element from a j instance
+ * @param  {Object}   obj A j instance or element
+ * @return {Element}         A element
+ */
+function uw(obj) {
+    return obj instanceof J ? obj.el : obj;
+}
 
 module.exports = j;
